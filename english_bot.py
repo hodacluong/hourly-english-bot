@@ -4,7 +4,6 @@ from google import genai
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-# Với thư viện mới, hệ thống tự động nhận diện GEMINI_API_KEY nên mã code sẽ gọn hơn rất nhiều
 
 def send_telegram(message):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
@@ -13,7 +12,6 @@ def send_telegram(message):
 
 def generate_english_lesson():
     try:
-        # Khởi tạo client theo chuẩn API mới nhất
         client = genai.Client()
         
         prompt = """
@@ -29,8 +27,8 @@ def generate_english_lesson():
         Lưu ý: Chỉ gửi đúng nội dung học, không dài dòng chào hỏi. Từ vựng phải mang tính thực chiến cao.
         """
         
-        # Gọi model gemini-2.5-flash theo cú pháp chính thức
-        response = client.generate_content(
+        # Đã cập nhật chính xác cú pháp mới của Google (thêm .models.)
+        response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt
         )
