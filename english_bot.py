@@ -16,7 +16,7 @@ def generate_english_lesson():
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         # Sử dụng model gemini-1.5-flash cho tốc độ siêu nhanh
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-pro')
         
         # Lệnh điều khiển AI (Prompt)
         prompt = """
