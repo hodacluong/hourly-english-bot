@@ -1,24 +1,21 @@
 import os
 import requests
-import google.generativeai as genai
+from google import genai
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# Với thư viện mới, hệ thống tự động nhận diện GEMINI_API_KEY nên mã code sẽ gọn hơn rất nhiều
 
 def send_telegram(message):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    # Dùng Markdown để tin nhắn hiển thị đẹp mắt
     data = {"chat_id": CHAT_ID, "text": message, "parse_mode": "Markdown"}
     requests.post(url, data=data)
 
 def generate_english_lesson():
     try:
-        genai.configure(api_key=GEMINI_API_KEY)
-        # Sử dụng model gemini-1.5-flash cho tốc độ siêu nhanh
-        model = genai.GenerativeModel('gemini-pro')
+        # Khởi tạo client theo chuẩn API mới nhất
+        client = genai.Client()
         
-        # Lệnh điều khiển AI (Prompt)
         prompt = """
         Đóng vai một giáo viên tiếng Anh xuất sắc. Hãy cung cấp 1 từ vựng hoặc 1 thành ngữ tiếng Anh MỚI (xoay vòng ngẫu nhiên giữa 3 chủ đề: Quản lý dự án xây dựng, Luật pháp, hoặc Đầu tư tài chính).
         Trình bày cực kỳ ngắn gọn, dễ nhìn bằng Markdown theo cấu trúc sau:
@@ -32,7 +29,11 @@ def generate_english_lesson():
         Lưu ý: Chỉ gửi đúng nội dung học, không dài dòng chào hỏi. Từ vựng phải mang tính thực chiến cao.
         """
         
-        response = model.generate_content(prompt)
+        # Gọi model gemini-2.5-flash theo cú pháp chính thức
+        response = client.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
         send_telegram(response.text)
         
     except Exception as e:
