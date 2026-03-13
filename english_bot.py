@@ -15,7 +15,7 @@ def generate_english_lesson():
         client = genai.Client()
         
         prompt = """
-        Đóng vai một giáo viên tiếng Anh xuất sắc. Hãy cung cấp 1 từ vựng hoặc 1 thành ngữ tiếng Anh MỚI (xoay vòng ngẫu nhiên giữa 3 chủ đề: Quản lý dự án xây dựng, Luật pháp, hoặc Đầu tư tài chính).
+        Đóng vai một giáo viên tiếng Anh xuất sắc. Hãy cung cấp 1 từ vựng hoặc 1 thành ngữ tiếng Anh MỚI (nằm trong 600 từ vựng cơ bản giao tiếp hằng ngày).
         Trình bày cực kỳ ngắn gọn, dễ nhìn bằng Markdown theo cấu trúc sau:
         
         📚 **[Từ vựng/Thành ngữ đó]** 🗣️ Phiên âm: 
